@@ -1,0 +1,57 @@
+<% max_level = Spree::Config[:max_level_in_taxons_menu] || 1 %>
+ 
+
+<ul class="menu-layer-1 taxomenus">
+<% @taxonomies.each do |taxonomy| %>
+<% cache [I18n.locale, taxonomy, max_level] do %>
+<li>
+	<label><a href="javascript:void(0)"><%= taxonomy.name %> </a> 
+
+		  
+			  <span class="glyphicon glyphicon-menu-right open" onclick="toggleclass(this, <%= taxonomy.id %>)" aria-hidden="true"></span>  
+
+	</label>
+
+	<ul class="menu-layer-2 toxoteggler-<%= taxonomy.id %>">
+		<% taxonomy.root.children.each do |taxon_lvl2| %>
+      	<% css_class = (@taxon && @taxon.self_and_ancestors.include?(taxon_lvl2)) ? 'list-group-item-a active' : 'list-group-item-a' %>
+      		<li data-taxo-id="<%= taxon_lvl2.id %>">
+      			<label>	<%= link_to taxon_lvl2.name.to_s+" ", seo_url(taxon_lvl2), class: css_class %>
+
+      					<% basetaxo = child_texts taxon_lvl2.id %>
+		      			<% if  basetaxo != nil && basetaxo.length > 0 %>
+		      			  <span class="glyphicon glyphicon-menu-right closed" onclick="toggleclass(this, <%= taxon_lvl2.id %>)" aria-hidden="true"></span>  
+		      			<% end  %> 
+      			</label>
+      			
+      			  
+      			 
+      			 <% if  basetaxo != nil && basetaxo.length > 0 %>
+      			 <ul class="menu-layer-3 toxoteggler-<%= taxon_lvl2.id %>" style="display: none">	
+      			 	<% basetaxo.each do |ch_taxon_3|  %>
+        			<% css_class = (@taxon && @taxon.self_and_ancestors.include?(ch_taxon_3)) ? 'list-group-item-b active' : 'list-group-item-b' %>
+        			<li> 
+        			<%#= ch_taxon_3.inspect %>
+        				<%= link_to ch_taxon_3.name, seo_url(ch_taxon_3), class: css_class %> 
+        			</li>
+        		 <% end %>	
+        		 </ul>	
+      			 <% end %>
+      		</li>
+      	<% end %>
+	</ul>
+</li>	
+
+
+<% end %>
+<% end %>    
+</ul>
+
+ 
+
+ 
+
+ 
+
+ 
+

@@ -1,0 +1,13 @@
+ <% unless spree_current_user.nil? %>
+ <% unless spree_current_user.wishlists.nil? %>
+  <% spree_current_user.wishlists.each do |wishlist| %>
+    <%= content_tag :li do %>
+      <%#= raw(link_to("<span class='glyphicons glyphicons-heart-empty'>"+wishlist.name+"</span>", wishlist))  %>
+      <a href="/wishlists/<%= wishlist.access_hash %>"> <%= wishlist.name %> <span class="glyphicon glyphicon-heart-empty"></span> </a>
+      <%#= link_to(wishlist.name, wishlist)  %>
+    <% end %>
+  <% end %>
+ <% end %>
+ <% end %>
+
+ 

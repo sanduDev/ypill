@@ -1,0 +1,17 @@
+<% @taxons = @taxon && @taxon.parent ? @taxon.parent.children : Spree::Taxon.roots %>
+
+<%= form_tag spree.products_path, :method => :get, class: "navbar-form" do %>
+   
+    <% cache(cache_key_for_taxons) do %>
+      <%= select_tag :taxon,
+            options_for_select([[Spree.t(:all_departments), '']] +
+                                  @taxons.map {|t| [t.name, t.id]},
+                                  @taxon ? @taxon.id : params[:taxon]), 'aria-label' => 'Taxon', class: "select" %>
+    <% end %>
+   
+  <!-- Spree.t(:search) -->
+    <%= search_field_tag :keywords, params[:keywords], :placeholder => "Search..." , class: "form-control" %>
+   
+  <%#= submit_tag Spree.t(:search), :name => nil, class: "search-btn" %>
+  <button class="search-btn"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+<% end %>

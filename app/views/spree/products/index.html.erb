@@ -1,0 +1,51 @@
+
+<div class="container">
+   <nav class="col-md-12" id="breadcrumbs">
+      <ol itemtype="https://schema.org/BreadcrumbList" itemscope="itemscope" class="breadcrumb">
+          <li itemprop="itemListElement" itemtype="https://schema.org/ListItem" itemscope="itemscope">
+              <span itemprop="item">
+               <a href="/" itemprop="url">
+                <span itemprop="name">Home</span>
+                </a> 
+              </span>
+          </li>
+           <li itemprop="itemListElement" itemtype="https://schema.org/ListItem" itemscope="itemscope" class="active">
+              <span itemprop="item">
+                <a href="/products" itemprop="url">
+                  <span itemprop="name">Products</span>
+                </a></span>
+           </li>
+</div>
+
+<%= render :partial => 'spree/products/left_sidebar' %>
+ 
+
+<% if "spree/products" == params[:controller] && @taxon || !@taxonomies.empty? %>
+  <% content_for :sidebar do %>
+    <div data-hook="homepage_sidebar_navigation">
+      <% if "spree/products" == params[:controller] && @taxon %>
+        <%= render :partial => 'spree/shared/filters' %>
+      <% else %>
+        <%= render :partial => 'spree/shared/taxonomies' %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+ 
+
+<% if params[:keywords] %>
+  <div data-hook="search_results_1">
+    <% if @products.empty? %>
+      <h6 class="search-results-title"><%= Spree.t(:no_products_found) %></h6>
+    <% else %>
+      <%= render :partial => 'spree/shared/products', :locals => { :products => @products, :taxon => @taxon } %>
+    <% end %>
+  </div>
+<% else %>
+  <div data-hook="homepage_products_1">
+    <% cache(cache_key_for_products) do %>
+      <%= render :partial => 'spree/shared/products', :locals => { :products => @products, :taxon => @taxon } %>
+    <% end %>
+  </div>
+<% end %>

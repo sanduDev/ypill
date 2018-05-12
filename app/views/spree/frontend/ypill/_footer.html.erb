@@ -1,0 +1,78 @@
+<footer class="site-footer clearfix">
+    <div class="f-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">  
+ <% partial = load_partial("/footer_static_links") %>
+        <%= raw(partial.body) unless partial.nil? %>
+ </div>
+        </div>
+      </div>
+    </div>
+    <div class="f-middle">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-6"> 
+            <% partial = load_partial("/footer-logo-and-text") %>
+                <%= raw(partial.body) unless partial.nil? %>
+          </div>
+          <div class="col-md-2 col-sm-3 col-xs-6">
+            <h6> Useful Links </h6>
+            <ul class="f-menu">
+              <li><a href="#">Affiliate</a></li>
+              <li><a href="#">Blog </a></li>
+              <li><a href="#">Forum</a></li>
+              <li><a href="#">Affiliate</a></li>
+              <li><a href="#">Blog </a></li>
+              <li><a href="#">Forum</a></li>
+            </ul>
+          </div>
+          <div class="col-md-2 col-sm-3 col-xs-6">
+            <h6> Order Info </h6>
+            <ul class="f-menu">
+              <li><a href="#">Affiliate</a></li>
+              <li><a href="#">Blog </a></li>
+              <li><a href="#">Forum</a></li>
+              <li><a href="#">Affiliate</a></li>
+              <li><a href="#">Blog </a></li>
+              <li><a href="#">Forum</a></li>
+            </ul>
+          </div>
+          <div class="col-md-2 col-sm-6 col-xs-6">
+            <h6> Need Help? </h6>
+            <ul class="f-menu">
+              <li><a href="#">Affiliate</a></li>
+              <li><a href="#">Blog </a></li>
+              <li><a href="#">Forum</a></li>
+              <li><a href="#">Affiliate</a></li>
+            </ul>
+          </div>
+          <div class="col-md-2 col-sm-6 col-xs-6">
+            <h6> Customer Service </h6>
+            <ul class="f-menu">
+              <li><a href="#">Returns and Exchanges</a></li>
+              <li><a href="#">Blog </a></li>
+              <li><a href="#">Forum</a></li>
+              <li><a href="#">Terms and Conditions</a></li>
+              <li><a href="#">Blog </a></li>
+              <li><a href="#">Promotions </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4 left"> 
+          <% partial = load_partial("/footer-copy-right") %>
+                <%= raw(partial.body) unless partial.nil? %>
+           </div>
+          <div class="col-sm-4 center"> <img src="/images/social-icon.png"> </div>
+          <div class="col-sm-4 right"> <img src="/images/we.png"> </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+

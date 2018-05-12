@@ -1,0 +1,77 @@
+.navbar-header {
+    float: none;
+}
+
+
+.navbar {
+    border: none;
+    margin-bottom: 0;
+  
+    
+}
+
+.navbar-nav {
+   
+    margin: auto;
+}
+
+
+a:hover, a:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-nav > li > a {
+    line-height: 50px;
+    
+}
+
+.navbar-form {
+   
+       margin-left: -15px;
+    margin-right: auto;
+}
+
+.my-account li{ color: #fff; }
+
+.carousel-caption{
+	top: 136px;
+}
+
+.carousel-caption h3{ 
+	background: #419203; 
+	font-size: 42px;
+    padding: 4px 0 10px;
+    }
+
+ .carousel-caption p{  
+	 font-size: 17px;
+    margin: 12px auto;
+    max-width: 481px;
+    opacity: 0.55;
+    padding: 12px 5px;
+    background: #000;
+} 
+
+
+.left.carousel-control span{ 
+	background-image: url("/images/arrow-lift.png");
+	background-repeat: no-repeat;
+	height: 60px;
+    padding: 15px 0 2px 2px;
+    width: 52px; }  
+
+.carousel-control{ width: 2.6%;  }    
+
+.right.carousel-control span{
+background-image: url("/images/arrow-right.png");	
+background-repeat: no-repeat;
+	height: 60px;
+    padding: 15px 7px 2px 2px;
+    width: 52px;
+      }
+
+.list-group{ margin-bottom: 0;  } 
+
+
+

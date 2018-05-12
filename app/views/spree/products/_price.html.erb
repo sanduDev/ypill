@@ -1,0 +1,18 @@
+ <h1 class="price">
+ <% if @product.sale_price.to_i > 0 && @product.sale_price != @product.price %>
+ <ul class="preicelist">
+   <li class="baseprice">
+      <label>Regular Price:</label>
+      <span>$<%= @product.price.to_f %></span>
+  </li>
+   <li class="saleprice">
+
+      <label>Special Price:</label>
+      <span><%= display_price(@product) %></span>
+
+   </li>
+ </ul>
+ <% else %>
+ <%= display_price(@product) %> 
+ <% end %>
+</h1> 

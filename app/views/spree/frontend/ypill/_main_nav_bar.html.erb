@@ -1,0 +1,51 @@
+
+<% @taxonomies ||= Spree::Taxonomy.includes(root: :children)  %>
+<% max_level = Spree::Config[:max_level_in_taxons_menu] || 1 %>
+<div class="navbar-header">
+      <div class="container">
+         <nav class="navbar" id="cssmenu">
+          <ul class="navbar-nav">
+            <li id="home-link"
+            class="<%= ('active' if @page.nil? && @taxon.id == 12) unless @taxon.nil? %>"
+              data-hook><%= link_to Spree.t(:home), spree.root_path %></li>
+          
+            <%#= @taxon.inspect %>
+            <% @taxonomies.each do |taxonomy| %>
+                <% cache [I18n.locale, taxonomy, max_level] do %>
+                    <%  taxonomy.root.children.each do |taxon|   %>
+                      <li class="<%= (taxon.id == @taxon.id ? 'active' : '') unless @taxon.nil? %>">
+                        <a href="<%= seo_url(taxon) %>">
+                          <%= taxon.name %>  
+                        </a> 
+                      </li>
+                    <% end %>
+                <% end %>
+            <% end %>
+            <li <%= 'class=active' if params[:controller].gsub('/', '_') == 'spree_contact_us_contacts' %>> <a href="/contact-us">Contact Us </a></li>
+          </ul>
+       
+        </nav>  
+        
+        <ul class="my-account">
+          <% if spree_current_user.nil? %> 
+ 
+            <li> <a href="/login">Sign in </a> / <a href="/signup"> Join </a> </li>
+			
+            <% else %>
+            <li> <%= link_to "Log out", logout_path %>   <%#= spree_current_user.email  %>  </li>
+          <% end %>
+		  
+		                <%= render :partial => '/spree/wishlists/whishlist_link' %>
+						
+						
+          <li class="head-cart">  
+              My Cart  
+              <div class="cart-icons">  
+                  <div class="iccon"></div>   
+                  <%= raw(link_to_cart.gsub("Cart:","").gsub("(Empty)","0").gsub("("," ").gsub(")"," ")) %> 
+              </div>
+          </li>
+
+        </ul>
+      </div>
+</div>

@@ -1,0 +1,43 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  hello: "Hello world"
+  spree:
+    add_volume_price: Add Volume Price
+    position: Position
+    discount_type: Discount Type
+    range: Range
+    volume_prices: Volume Prices
+    volume_pricing: Volume Pricing
+    price_discount: Price Discount
+    percent_discount: Percent Discount
+    bulk_discount: Bulk Discount
+    related_product_discount:
+      discount_shipping:
+        name: "Related Product Discount"
+        description: "Related Product Discount"
+  activerecord:
+    errors:
+      messages:
+        could_not_conver_to_range: "Couldn't convert to Range: %{number}"
+        is_not_a_valid_volume_price_type: '%{value} is not a valid Volume Price Type'
+        must_be_in_format: 'must be in one of the following formats: (a..b), (a...b), (a+)'

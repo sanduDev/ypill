@@ -1,0 +1,22 @@
+<div class="wrapper">
+
+<header class="header clearfix">
+  
+  
+    <div class="container pt10 pb10">
+      <div class="row">
+        <div class="col-md-3 col-sm-4"> 
+          <figure id="logo" class="col-md-4" data-hook>
+             <%= logo %>
+          </figure>
+         </div>
+        
+           <%= render :partial => 'spree/frontend/ypill/nav_bar' %>
+         
+      </div>
+    </div>
+  
+     <%= render :partial => 'spree/frontend/ypill/main_nav_bar' if store_menu? %>
+  </header>
+
+ 

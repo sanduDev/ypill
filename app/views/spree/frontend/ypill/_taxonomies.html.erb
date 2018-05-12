@@ -1,0 +1,68 @@
+<% max_level = Spree::Config[:max_level_in_taxons_menu] || 1 %>
+ 
+<div class="container">
+				<!-- <a href="#" class="left-arrow pull-right"> 
+         			  <img src="/images/right-arrow.png" alt="s">  
+         		</a> 
+         		<a href="#" class="left-arrow pull-right"> 
+         			  <img src="/images/right-arrow.png" alt="s">  
+         		</a>  -->
+      <div class="row">
+         <h3 class="col-sm-12 left block-tittle prod-slider-title">
+         		Featured Collections 
+         		
+         </h3>
+
+
+         	<ul class="collection" id="productslider">
+			  <% @taxonomies.each do |taxonomy| %>
+			    <% cache [I18n.locale, taxonomy, max_level] do %>
+
+			      	<%  taxonomy.root.children.each do |taxon|   %>
+			      		<li class="slideitem">
+				      		<div class="product-block">
+				      		<a href="<%= seo_url(taxon) %>">
+
+				      			<%= image_tag(taxon.icon(:original))	 %>
+
+				      			<span><%= taxon.name %> </span>
+				      		</a>	
+				      		</div>
+			      		</li>
+			      	<% end %>
+			    <% end %>
+			  <% end %>
+
+
+			</ul>
+
+
+			
+      </div>
+</div>
+
+<script type="text/javascript">
+	(function() {
+ 
+	jQuery(function() {
+ 
+	this.film_rolls || (this.film_rolls = []);
+ 
+	this.film_rolls['productslider'] = new FilmRoll({
+ 
+	container: '#productslider',
+	pager: false,
+	scroll: false,
+	no_css: false,
+	prev: ""
+ 
+	//height: 240
+ 
+	});
+ 
+	return true;
+ 
+	});
+ 
+	}).call(this);
+</script>

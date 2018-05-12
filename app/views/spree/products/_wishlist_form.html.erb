@@ -1,0 +1,14 @@
+<%#= spree_current_user %>
+<%#= spree_current_user && %>
+<% if @product != nil %>
+  <div id="wishlist-form">
+    <%= form_for Spree::WishedProduct.new do |f| %>
+      <%= f.hidden_field :variant_id, value: @product.master.id %>
+      <%= f.hidden_field :quantity %>
+      <button type="submit" class="btn btn-info">
+        <%= Spree.t(:add_to_wishlist) %>
+      </button>
+    <% end %>
+  </div>
+<% end %>
+ 

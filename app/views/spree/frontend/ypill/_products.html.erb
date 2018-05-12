@@ -1,0 +1,109 @@
+<%
+  paginated_products = @searcher.retrieve_products if params.key?(:keywords)
+  paginated_products ||= products
+%>
+
+<% content_for :head do %>
+  <% if paginated_products.respond_to?(:num_pages) %>
+    <%= rel_next_prev_link_tags paginated_products %>
+  <% end %>
+<% end %>
+
+<div class="products_search_results_heading" data-hook="products_search_results_heading">
+  <% if products.empty? %>
+    <div data-hook="products_search_results_heading_no_results_found">
+      <%= Spree.t(:no_products_found) %>
+    </div>
+  <% elsif params.key?(:keywords) %>
+    <div class="products_search_results_heading_results_found" data-hook="products_search_results_heading_results_found">
+      <h6 class="search-results-title"><%= Spree.t(:search_results, keywords: h(params[:keywords])) %></h6>
+    </div>
+  <% end %>
+</div>
+ 
+
+
+<div class="container home_static_part_1 clearfix">
+ <% partial = load_partial("/home_static_part_1") %>
+      <div class="row">
+        <%= raw(partial.body) unless partial.nil? %>
+      </div>
+</div>
+
+<div class="container home_static_part_2 clearfix">
+ <% partial = load_partial("/home_static_part_2") %>
+      <div class="col-sm-12 center home-about">
+        <% if partial != nil && partial.title.to_s.length > 3 %>
+          <h3><%= partial.title.to_s %></h3>
+        <% end  %>  
+        <%= raw(partial.body) unless partial.nil? %>
+      </div>
+</div>
+
+ 
+ 
+
+ <%= render partial: 'spree/frontend/ypill/taxonomies' %>
+
+
+<div class="clearfix home_static_part_3">
+ <% partial = load_partial("/home_static_part_3") %>
+      <div class="peralax">
+        <%= raw(partial.body) unless partial.nil?     %>
+      </div>
+</div>
+ 
+
+
+<div class="container Featured-pro-home">
+      <div class="row">
+        <h3 class="col-sm-12 left block-tittle"> Featured Products 
+        <% unless @taxon.nil? %>
+        <a href="<%= seo_url(@taxon) %>" class="btn-2 pull-right">  View More </a>
+        <% end  %> </h3>
+
+<% if products.any? %>
+  <ul id="products" class="product-list clearfix" data-hook>
+    <% products.each do |product| %>
+    <% @product = product %>
+      <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
+      <li id="product_<%= product.id %>" class="col-sm-3 col-xs-6 product-list-item" data-hook="products_list_item" itemscope itemtype="https://schema.org/Product" data-taxid="<%= @taxon.try(:id)  %>">
+        <div class="panel panel-default product-block">
+          <% cache(@taxon.present? ? [I18n.locale, current_currency, @taxon, product] : cache_key_for_product(product)) do %>
+            <%= small_image(product, itemprop: "image") %> 
+              <div class="price">
+                <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                  <span class="price selling lead" itemprop="price">
+                    <%#= display_price(product) %>
+                    <%= render partial: 'spree/products/price'  %>   
+                  </span>
+                </span>
+              </div>
+            <div class="panel-footer text-center">
+                  <%= link_to url, itemprop: "url" do %>
+                    <%= content_tag(:span, truncate(product.name, length: 50), class: 'info', itemprop: "name", title: product.name) %>
+                  <% end %>
+                  
+                  <%# spree_current_user.inspect  %>
+               <%= render partial: 'spree/products/minicart'  %>   
+               <%= render partial: 'spree/products/wishlist_form'  %>   
+            </div>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+    <% reset_cycle("classes") %>
+  </ul>
+<% end %>
+
+</div>
+</div>
+
+
+
+<% if paginated_products.respond_to?(:num_pages) %>
+  <%= paginate paginated_products, theme: 'twitter-bootstrap-3' %>
+<% end %>
+
+
+

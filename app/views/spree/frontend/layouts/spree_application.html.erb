@@ -1,0 +1,45 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie ie6" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if gt IE 9]><!--><html lang="<%= I18n.locale %>"><!--<![endif]-->
+  <head data-hook="inside_head">
+ 
+    <%= render partial: 'spree/frontend/ypill/head' %>
+
+  </head>
+  <body class="<%= body_class %> front-<%= params[:controller].gsub('/','_') %>-<%= params[:action] %>-<%= @taxon.nil? ? 'x' : @taxon.id %> front-<%= params[:controller].gsub('/','_') %>-<%= params[:action] %>" id="<%= @body_id || 'default' %>" data-hook="body">
+    <%= render partial: 'spree/shared/google_analytics.js' %>
+    <%= render partial: 'spree/frontend/ypill/header' %>
+
+    <div class="main spreemaxons<%=  @taxon.id unless @taxon.nil? %>">
+    <!-- <div class="slider center"> <img src="/images/slider.jpg" width="1500" height="500" alt="slider"> </div> -->
+    <%#= render partial: 'spree/shared/slider', locals: { slider: Spree::Slide.published, cid: 'home', interval: false } %>
+      <div class="main-block" data-hook>
+        
+        <%#= params.inspect  %>
+        <% unless params[:controller] == "spree/home" && params[:action] == "index" %>
+        <div class="container">
+       <div class="row">
+           <%= breadcrumbs(@taxon) %>
+       </div>
+	   </div>
+        <% end %>
+
+<div class="container">
+<div class="row">
+<div id="content" data-hook>
+  <%= flash_messages %>
+  <%= yield %>
+</div>
+</div>
+</div>
+        <%= yield :templates %>
+      </div>
+    </div>
+    <!-- wrrapper started in header -->
+    </div>
+     <%= render partial: 'spree/frontend/ypill/footer' %>
+  </body>
+</html>

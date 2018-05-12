@@ -1,0 +1,16 @@
+ 
+<div class="col-md-6 col-md-offset-3">
+  <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"> <%= Spree.t(:creating_wishlist) %> </h3>
+    </div>
+      <div id="wishlist" class="panel-body" data-hook="login">
+     <%= form_for @wishlist do |f| %>
+  <p><%= f.label :name, Spree.t(:name) %> <%= f.text_field :name %></p>
+  <p><%= f.check_box :is_private %>&nbsp;<%= f.label :is_private, Spree.t(:is_private) %></p>
+  <%= f.submit Spree.t(:create) %>
+<% end -%>
+ 
+      </div>
+  </div>
+</div>

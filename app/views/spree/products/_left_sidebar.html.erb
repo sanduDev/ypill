@@ -1,0 +1,38 @@
+ 
+
+
+<div class="col-lg-3 left-siderbar">
+  <div class="heading">
+      <h4 class="default font-20">Shop by Collection</h4>
+    </div>
+    <div class="sidebar">
+
+ 
+         <%= render partial: 'spree/products/taxonomies' %>
+    </div>
+
+    <div class="pull-top-20">
+      <img src="/images/add-1.jpg" class="img-responsive">
+    </div>
+    <div class="pull-top-20">
+      <img src="/images/add-2.jpg" class="img-responsive">
+    </div>
+    <div class="pull-top-20">
+      <img src="/images/add-3.jpg" class="img-responsive">
+    </div>
+</div>
+
+<div class="col-lg-9 page-right">
+<div class="row">
+<% unless @taxon.nil? %>
+  <h4 class="col-sm-12 left pull-t-b"><%= @taxon.name %> </h4>
+  <%#= @taxon.inspect %>
+<div class="col-lg-12 col-xs-12">
+    <div class="img-box">
+    <%= image_tag(@taxon.icon(:original), class: "img-responsive")   %>
+
+    </div>
+    <p class="text-justify default pull-b30"><%= @taxon.description %> 
+    </p>
+</div>  
+<% end %>

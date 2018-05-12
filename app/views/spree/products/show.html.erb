@@ -1,0 +1,179 @@
+<% @body_id = 'product-details' %>
+
+<% cache [I18n.locale, current_currency, @product] do %>
+  <div data-hook="product_show" itemscope itemtype="https://schema.org/Product">
+    <div class="col-md-6" data-hook="product_left_part">
+      <div data-hook="product_left_part_wrap">
+        <div id="product-images" data-hook="product_images">
+          <div id="main-image" class="panel panel-default" data-hook>
+            <div class="panel-body text-center">
+              <%= render :partial => 'image' %>
+            </div>
+          </div>
+          <div id="thumbnails" data-hook>
+            <%= render :partial => 'thumbnails' %>
+          </div>
+        </div>
+
+        <div data-hook="promotions">
+          <%= render :partial => 'promotions' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-6" data-hook="product_right_part">
+      <div class="product_right_part">
+          <h3 class="product-title left" itemprop="name"><%= @product.name %></h3>
+              <div data-hook="product_right_part_wrap" class="product_right_part_wrap">
+
+                    <!-- <div class="review">
+                     <ul class="list-inline">
+                     <li>  Review </li>
+                     <li> <img src="images/rating.png" class="img-responsive"> </li>
+                      <li>( 50 ) &nbsp;&nbsp;&nbsp;|</li>
+                      <li>&nbsp;&nbsp;&nbsp; <a href="#">Write a review </a> </li>
+                    </ul>
+                   </div> -->
+
+                  
+
+                  <div id="product-price">
+                      <!-- <h6 class="product-section-title"><%= Spree.t(:price) %></h6> -->
+                     
+                         <p class="availability"> Availability: In Stock</p>
+                        <%= render partial: 'spree/products/price', locals: { product: @product } %>
+                           <!--  <span itemprop="priceCurrency" content="<%#= @product.currency %>"></span> -->
+                      <% if @product.master.can_supply? %>
+                        <link itemprop="availability" href="https://schema.org/InStock" />
+                      <% elsif @product.variants.empty? %>
+                        
+                        <span class="out-of-stock"><%= Spree.t(:out_of_stock) %></span>
+                      <% end %>
+                      <% points = reward_points(@product) %>
+          					  <% if points.to_i > 0 %>
+          					     <p class="text-danger font-16">
+                            <%= points.to_i  %> reward point<%= "s" if points.to_i > 1   %>
+                        </p>
+                      <% end %>
+                  </div>
+
+          <div id="cart-form" data-hook="cart_form">
+          <%= render partial: 'spree/products/volume_pricing', locals: { product: @product } %>
+
+              <div class="tabing" id="properties-block" style="display: block;">
+                <%= render :partial => 'properties' %>
+              </div>
+
+				  <div class="quantity">
+                     <%= render :partial => 'cart_form' %>
+					</div>
+
+
+
+          <%= render :partial => 'spree/products/wishlist_form' %>
+                  </div>
+                  <div class="product-etras">
+                        <div class="social">
+                            <ul class="list-inline">
+                                <li> <a href="#"><img src="/images/facebook.png"> Facebook </a> </li>
+                                  <li> <a href="#"> <img src="/images/twit.png">Twitter</a> </li>
+                                  <li> <a href="#"> <img src="/images/g+.png">Google+ </a> </li>
+                              </ul>
+                            </div>
+
+                            <div class="shipping">
+                            <span>Shipping <img src="/images/truck.png"></span>
+                              <p>Lorem ipsum dolor sit amet, consectetuer </p>
+                      </div>
+                  </div>    
+                                     
+                
+              </div>
+      </div>              
+    </div>
+  </div>
+
+<div class="container">
+  <div class="product-des">
+        <div class="tab">
+          <ul class="list-inline" id="prod-cont-tabs">
+              <li class="active tab-btn" data-tab="#product-description"> 
+                <a href="javascript:void(0)" onclick="return false;">Description</a> 
+              </li>
+                <li class="tab-btn" data-tab="#product-properties"> 
+                  <a href="javascript:void(0)" onclick="return false;">Review’s</a> 
+                </li>
+            </ul>
+        </div>
+
+        <div class="text-div">
+              <div id="product-description" class="tabing" data-hook="product_description" style="display: block;">
+                 <div class="well-1" itemprop="description" data-hook="description">
+                    <%= product_description(@product) rescue Spree.t(:product_has_no_description) %>
+                  </div>      
+              </div>
+
+              <div data-hook="product_properties" class="tabing" id="product-properties" style="display: none;">
+               <%= render :partial => 'properties' %>
+              </div>
+
+        </div>
+  </div>
+</div>
+
+
+
+<%= render :partial => 'taxons' %>
+<% end %>
+
+
+
+<% if @product.relations.any? %>
+<div class="related-items">
+<h3 class="col-sm-12 left heading-text relate-product"> Related Products </h3>
+<ul class="product-list clearfix" id="related-products">
+
+    <% @product.relations.each do |relation| %>
+      <li class="releted-item-point">
+        <div class="product-block">
+          <%= small_image(relation.related_to, itemprop: "image") %> 
+            <div class="price"><%= display_price(relation.related_to) %></div>
+            <span class="pro-tittle"> <%= link_to relation.related_to.name, relation.related_to %></span>
+
+        </div>
+        
+      </li>
+    <% end %>
+</ul>    
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+  (function() {
+ 
+  jQuery(function() {
+ 
+  this.film_rolls || (this.film_rolls = []);
+ 
+  this.film_rolls['productslider'] = new FilmRoll({
+ 
+  container: '#related-products',
+  pager: false,
+  scroll: false,
+  no_css: false,
+  prev: ""
+ 
+  //height: 240
+ 
+  });
+ 
+  return true;
+ 
+  });
+ 
+  }).call(this);
+  })
+</script>
+
+<% end  %>
+
+

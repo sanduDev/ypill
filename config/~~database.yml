@@ -1,0 +1,31 @@
+
+#
+# Configure Using Gemfile
+# gem 'pg'
+#
+default: &default
+
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password: admin
+  host: localhost
+  port: 5432
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  #pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: ypill_development_1
+
+test:
+  <<: *default 
+  database: ypill_test_1
+
+
+production:
+  <<: *default
+  database: ypill_development_1
+  username: postgres
+  password: admin
